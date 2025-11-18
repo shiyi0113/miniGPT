@@ -9,7 +9,7 @@ class BasicTokenizer(Tokenizer):
     def __init__(self):
         super().__init__()
     
-    def trian(self,text,vocab_size,verbose=False):
+    def train(self,text,vocab_size,verbose=False):
         assert vocab_size >= 256
         num_merges = vocab_size - 256
         text_bytes = text.encode("utf-8")
@@ -40,7 +40,7 @@ class BasicTokenizer(Tokenizer):
             if pair not in self.merges:
                 break
             idx = self.merges[pair]
-            ids.merge(ids,pair,idx)
+            ids = merge(ids,pair,idx)
         return ids
     
     def decode(self,ids):

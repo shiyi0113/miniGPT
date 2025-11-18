@@ -20,7 +20,7 @@ class RegexTokenizer(Tokenizer):
         num_merges = vocab_size - 256
 
         text_chunks = re.findall(self.compiled_pattern,text) # 根据正则表达式先拆分成小片段
-        ids = [list(ch.encode('utf-8') for ch in text_chunks)]
+        ids = [list(ch.encode('utf-8')) for ch in text_chunks]
 
         merges = {}
         vocab = {idx:bytes([idx]) for idx in range(256)}
@@ -57,7 +57,7 @@ class RegexTokenizer(Tokenizer):
         for chunk in text_chunks:
             chunk_bytes = chunk.encode('utf-8')
             chunk_ids = self._encode_chunk(chunk_bytes)
-            ids.append(chunk_ids)
+            ids.extend(chunk_ids)
         return ids
     
     def encode(self, text,allowed_special='none_raise'):
@@ -85,7 +85,7 @@ class RegexTokenizer(Tokenizer):
             if part in special:
                 ids.append(special[part])
             else:
-                ids.append(self.encode_ordinary(part))
+                ids.extend(self.encode_ordinary(part))
         return ids
     
     def decode(self, ids):
@@ -94,7 +94,7 @@ class RegexTokenizer(Tokenizer):
             if idx in self.vocab:
                 part_bytes.append(self.vocab[idx])
             elif idx in self.inverse_special_tokens:
-                part_bytes.append(self.inverse_special_tokens[idx])
+                part_bytes.append(self.inverse_special_tokens[idx].encode('utf-8'))
             else:
                 raise ValueError(f'invalid token id:{idx}')
         text_bytes = b''.join(part_bytes)
