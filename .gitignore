@@ -13,3 +13,4 @@ rustbpe/target/
 report.md
 eval_bundle/
 dev-ignore/
+*.pytest_cache
