@@ -15,6 +15,3 @@ eval_bundle/
 dev-ignore/
 *.pytest_cache
 output/
-
-# test
-tok_train.py

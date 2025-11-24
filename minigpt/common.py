@@ -4,10 +4,8 @@
 import os
 import re
 import logging
-import urllib.request
 import torch
 import torch.distributed as dist
-from filelock import FileLock
 
 class ColoredFormatter(logging.Formatter):
     """自定义日志格式，添加颜色高亮"""
@@ -56,37 +54,9 @@ def get_base_dir():
     os.makedirs(minigpt_dir, exist_ok=True)
     return minigpt_dir
 
-def download_file_with_lock(url, filename, postprocess_fn=None):
-    """
-    下载文件并使用文件锁防止多进程同时下载冲突。
-    """
-    base_dir = get_base_dir()
-    file_path = os.path.join(base_dir, filename)
-    lock_path = file_path + ".lock"
-
-    if os.path.exists(file_path):
-        return file_path
-
-    with FileLock(lock_path):
-        # 只有一个进程能获取锁，其他进程等待
-        if os.path.exists(file_path):
-            return file_path
-
-        print(f"Downloading {url}...")
-        with urllib.request.urlopen(url) as response:
-            content = response.read() # bytes
-
-        with open(file_path, 'wb') as f:
-            f.write(content)
-        print(f"Downloaded to {file_path}")
-
-        if postprocess_fn is not None:
-            postprocess_fn(file_path)
-
-    return file_path
-
 def print0(s="", **kwargs):
-    """只在主进程 (Rank 0) 打印，避免分布式训练时刷屏"""
+    """分布式训练时，只在主进程打印"""
+    # 主进程 RANK=0 非分布式时没有RANK，也是0
     ddp_rank = int(os.environ.get('RANK', 0))
     if ddp_rank == 0:
         print(s, **kwargs)

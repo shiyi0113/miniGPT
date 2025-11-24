@@ -17,7 +17,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from minigpt.common import get_dist_info, print0
+from minigpt.common import get_dist_info
 from minigpt.muon import Muon, DistMuon
 from minigpt.adamw import DistAdamW
 
