@@ -12,7 +12,7 @@
 * **软件依赖**:
     * Python >= 3.12
     * Rust (用于编译扩展)
-    * [uv](https://github.com/astral-sh/uv) (Python 包管理器，**强烈推荐**)
+    * uv (Python 包管理器，**强烈推荐**)
 * **硬件参考**:
     * 本项目代码编写与测试于 **NVIDIA RTX 5060** 环境。
     * 默认配置 (`batch_size=4`, `seq_len=512`) 经过优化，适配 8GB 显存的消费级显卡。
@@ -22,14 +22,10 @@
 我们提供了一个全流程脚本 `quickstart.sh`，能够自动完成环境配置、Rust 编译、数据下载、模型训练和对话测试。
 
 ```bash
-# 1. 克隆仓库
-git clone [https://github.com/shiyi0113/minigpt.git](https://github.com/shiyi0113/minigpt.git)
+git clone https://github.com/shiyi0113/miniGPT.git
 cd minigpt
 
-# 2. 赋予脚本执行权限
 chmod +x quickstart.sh
-
-# 3. 启动全流程 (包含环境安装、编译、下载数据、训练、对话)
 ./quickstart.sh
 ```
 ## 📂 项目结构 (Project Structure)
@@ -62,9 +58,9 @@ minigpt/
 * [x] **基础预训练 (Pre-training)**: 实现完整的数据流、模型定义与训练循环。
 * [x] **混合精度训练 (BF16)**: 全程支持 BFloat16，适配现代 GPU 架构。
 * [x] **Rust 加速 Tokenizer**: 完成 RustBPE 的实现与 Python 绑定。
-* [ ] **Web UI 界面**: 计划基于 FastAPI 或 Gradio 开发可视化的对话交互界面。
-* [ ] **指令微调 (SFT)**: 支持 Supervised Fine-Tuning 数据格式与训练流程。
-* [ ] **RLHF 流程**: 探索基于人类反馈的强化学习实现。
+* [ ] **Web UI 界面**
+* [ ] **指令微调 (SFT)**
+* [ ] **RLHF 流程**
 
 ## 🤝 致谢 (Acknowledgements)
 
