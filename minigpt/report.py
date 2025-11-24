@@ -1,5 +1,5 @@
 """
-训练报告生成工具。
+训练报告生成工具
 """
 import os
 import datetime

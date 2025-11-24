@@ -15,3 +15,9 @@ eval_bundle/
 dev-ignore/
 *.pytest_cache
 output/
+
+tests/taylorswift.txt
+tests/test_dataloader.py
+tests/test_gpt.py
+tests/test_pybpe.py
+tests/test_rustbpe.py
